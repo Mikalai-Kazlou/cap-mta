@@ -27,8 +27,8 @@ mta_archives/
 *.flattened-pom.xml
 
 # IDEs
-# .vscode
-# .idea
+.vscode
+.idea
 
 # auto generated wildcard
-db/.env
+.env
