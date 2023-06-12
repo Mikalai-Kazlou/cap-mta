@@ -32,4 +32,31 @@ module.exports = cds.service.impl(function () {
       return;
     }
   })
+
+  this.on("submitOrder", async (req) => {
+    const { book, amount } = req.data;
+    let { stock } = await db.read(Books, book, (b) => b.stock);
+    if (stock >= amount) {
+      await db.update(Books, book).with({ stock: (stock -= amount) });
+      await this.emit("OrderedBook", { book, amount, buyer: req.user.id });
+      return req.reply({ stock }); // <-- Normal reply
+    } else {
+      // Reply with error code 409 and a custom error message
+      return req.error(409, `${amount} exceeds stock for book #${book}`);
+    }
+  });
+
+  this.on("error", (err, req) => {
+    switch (err.message) {
+      case "UNIQUE_CONSTRAINT_VIOLATION":
+        err.message = "The entry already exists.";
+        break;
+
+      default:
+        err.message =
+          "An error occured. Please retry. Technical error message: " +
+          err.message;
+        break;
+    }
+  });
 })
