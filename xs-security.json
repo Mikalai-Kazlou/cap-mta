@@ -1,0 +1,33 @@
+{
+  "xsappname": "cap-mta",
+  "tenant-mode": "dedicated",
+  "scopes": [
+    {
+      "name": "$XSAPPNAME.Vendor",
+      "description": "Supplier"
+    },
+    {
+      "name": "$XSAPPNAME.ProcurementManager",
+      "description": "Manager"
+    }
+  ],
+  "attributes": [],
+  "role-templates": [
+    {
+      "name": "Vendor",
+      "description": "Supplier",
+      "scope-references": [
+        "$XSAPPNAME.Vendor"
+      ],
+      "attribute-references": []
+    },
+    {
+      "name": "ProcurementManager",
+      "description": "Manager",
+      "scope-references": [
+        "$XSAPPNAME.ProcurementManager"
+      ],
+      "attribute-references": []
+    }
+  ]
+}

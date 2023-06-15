@@ -1,4 +1,4 @@
-_schema-version: '3.1'
+_schema-version: "3.1"
 ID: cap-mta
 version: 1.0.0
 description: MTA
@@ -20,7 +20,7 @@ modules:
     provides:
       - name: srv-api
         properties:
-          srv-url: '${default-url}'
+          srv-url: "${default-url}"
     requires:
       - name: cap-mta-db
   - name: cap-mta-db-deployer
@@ -36,3 +36,20 @@ resources:
     parameters:
       service: hana
       service-plan: hdi-shared
+  - name: cap-mta-xsuaa
+    type: org.cloudfoundry.managed-service
+    parameters:
+      service-plan: application
+      service: xsuaa
+      path: ./xs-security.json
+      config:
+        xsappname: "cap-mta-${space}"
+        role-collections:
+          - name: "Vendor-${space}"
+            description: Read Access
+            role-template-references:
+              - $XSAPPNAME.Vendor
+          - name: "ProcurementManager-${space}"
+            description: All Access
+            role-template-references:
+              - $XSAPPNAME.ProcurementManager

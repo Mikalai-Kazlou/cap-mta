@@ -1,1 +1,31 @@
-{}
+{
+  "[development]": {
+    "auth": {
+      "passport": {
+        "strategy": "mock",
+        "users": {
+          "Vendor@tester.sap.com": {
+            "password": "initial",
+            "ID": "Vendor",
+            "userAttributes": {
+              "email": "Vendor@tester.sap.com"
+            },
+            "roles": [
+              "Vendor"
+            ]
+          },
+          "ProcurementManager@tester.sap.com": {
+            "password": "initial",
+            "ID": "ProcurementManager",
+            "userAttributes": {
+              "email": "ProcurementManager@tester.sap.com"
+            },
+            "roles": [
+              "ProcurementManager"
+            ]
+          }
+        }
+      }
+    }
+  }
+}
